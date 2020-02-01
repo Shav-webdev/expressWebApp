@@ -1,11 +1,26 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const pug = require('pug');
+const homeRoute = require('./routes/home');
+const formRoute = require('./routes/form');
+const resultRoute = require('./routes/result');
+// const {globalStorage} = require('/storage/storage');
+
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-
 app.use(cookieParser());
+
+
+app.use('/', homeRoute);
+app.use('/form', formRoute);
+app.use('/result', resultRoute);
+
+app.set('views', './views');
+app.set('view engine', 'pug');
+
+
 
 app.use(function(req, res, next) {
   let cookie = req.cookies.todayDate;
@@ -27,29 +42,6 @@ app.use(function(req, res, next) {
     console.log('cookie exists', cookie);
   }
   next();
-});
-
-/**
- * router for home page*/
-
-app.get('/', (req, res) => {
-  res.send(`<h1>Hello world </h1>
-            <span>${req.cookies.todayDate}</span>`);
-});
-
-/**
- * req.param(name [, defaultValue]) Deprecated. Use either req.params, req.body or req.query, as applicable.*/
-
-app.get('/myroute/:param', (req, res) => {
-  res.send(` <pre> req.params : ${JSON.stringify(req.params)} </pre>
-             <pre>req.query : ${JSON.stringify(req.query)}</pre>  <!--If there is no query string, it is the empty object, {}-->
-             <pre>req.headers : ${JSON.stringify(req.headers)}</pre>
-             <pre> req.cookies : ${JSON.stringify(req.cookies)} </pre>`);
-  // res.send(req.query);
-});
-
-app.get('/form', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'form.html'));
 });
 
 app.listen(PORT, () => {
