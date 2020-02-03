@@ -1,5 +1,5 @@
 module.exports = class User {
-  constructor(id, username, pass, gender, agree ) {
+  constructor(id, username, pass, gender, agree) {
     this.id = id;
     this.username = username;
     this.pass = pass;
@@ -7,6 +7,3 @@ module.exports = class User {
     this.agree = agree;
   }
 };
-
-
-

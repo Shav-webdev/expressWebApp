@@ -1,8 +1,6 @@
 const { Router } = require('express');
 const router = Router();
 
-
-
 router.get('/', function(req, res) {
   let date = {
     time: new Date(),
@@ -10,7 +8,4 @@ router.get('/', function(req, res) {
   res.send(` <pre> ${JSON.stringify(date)} </pre>`);
 });
 
-
 module.exports = router;
-
-

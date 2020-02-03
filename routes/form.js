@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const path = require('path');
-const globalStorage  = require('../storage/storage');
+const globalStorage = require('../storage/storage');
 let bodyParser = require('body-parser');
 const User = require('../auth/user');
 
@@ -12,10 +12,16 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', urlencodedParser, function(req, res) {
-  globalStorage.push(new User(globalStorage.length, req.body.username, req.body.pass, req.body.gender, `${!!req.body.agree}`));
+  globalStorage.push(
+    new User(
+      globalStorage.length,
+      req.body.username,
+      req.body.pass,
+      req.body.gender,
+      `${!!req.body.agree}`
+    )
+  );
   res.redirect('/result');
 });
 
 module.exports = router;
-
-
